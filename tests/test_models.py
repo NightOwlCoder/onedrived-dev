@@ -59,7 +59,6 @@ class TestPathFilter(unittest.TestCase):
 
     def test_hardcoded_cases(self):
         cases = [
-            ('/.hehe', True, True),
             ('/' + self.filter.get_temp_name('hello.txt'), False, True),
             ('/he?he', False, True)
         ]
@@ -82,7 +81,9 @@ class TestPathFilter(unittest.TestCase):
             ('/a.swp', False, True),
             ('/hello/world.swp', False, True),
             ('/.ignore', False, True),
+            ('/.notignore', False, False),
             ('/baz/.ignore', True, True),
+            ('/baz/.notignore', False, False),
             ('/baz/dont.ignore', False, False),
             ('/build', True, True),  # This rule tests case-insensitiveness
             ('/tmp/build', True, True)  # because the rule is "BUILD/"
